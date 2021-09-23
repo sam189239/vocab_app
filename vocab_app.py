@@ -120,7 +120,7 @@ if __name__ == "__main__":
   # cols = ["word", "definition", "examples", "synonyms"]
   # st_ms = st.multiselect("Columns", df.columns.tolist(), default=cols)
 
-
+  
 
 
 
@@ -131,3 +131,4 @@ if __name__ == "__main__":
 
 
   #clickable lists
+  #duplicate removal
