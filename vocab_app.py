@@ -61,20 +61,26 @@ if __name__ == "__main__":
   df = pd.DataFrame(coll.find())
   df = df.drop('_id', 1)
   
+  home_button = st.sidebar.button("Home")
   fl_button = st.sidebar.button("Full List")
   word = st.sidebar.text_input("Add words to the database here")
   add_button = st.sidebar.button("Add")
   
-
+  if home_button:
+    fl_button = False
+    
+  # Full list page
   if fl_button:
     st.title('Full word list: ')
     search()
+    fl_button = True
     st.table(df)
-    button = st.button('Go Back')
-    if button:
-      fl_button = False
+    back_button = st.button('Go Back')
+    if back_button:
+      fl_button = False      
 
 
+  # Home page
   else:
 
     st.title("Vocabulary app")
@@ -110,3 +116,5 @@ if __name__ == "__main__":
 
   #clickable lists
   #duplicate removal
+  #sort list
+  #search in df
