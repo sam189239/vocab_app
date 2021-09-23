@@ -75,7 +75,7 @@ if __name__ == "__main__":
     st.title('Full word list: ')
     search()
     fl_button = True
-    df.sort_values(by=['word'], inplace=False)
+    df.sort_values(by=['word'], inplace=True)
     st.table(df)
     back_button = st.button('Go Back')
     if back_button:
