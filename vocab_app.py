@@ -1,4 +1,4 @@
-from altair.vegalite.v4.schema.core import FlattenTransform
+# from altair.vegalite.v4.schema.core import FlattenTransform
 from numpy.core.fromnumeric import mean
 from freedictionaryapi.clients.sync_client import DictionaryApiClient
 import pandas as pd
@@ -13,15 +13,6 @@ def get_database():
     CONNECTION_STRING = "mongodb+srv://sam:1234239@vocab-app-cluster.ckp7m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
     client = pymongo.MongoClient(CONNECTION_STRING)
     return client['dict_list']
-
-
-def append_list_as_row(file_name, list_of_elem):
-    # Open file in append mode
-    with open(file_name, 'a+', newline='') as write_obj:
-        # Create a writer object from csv module
-        csv_writer = writer(write_obj)
-        # Add contents of list as last row in the csv file
-        csv_writer.writerow(list_of_elem)
 
 
 def meaning(input_word):
@@ -46,7 +37,22 @@ def display_word(df, r):
   st.markdown("Examples: "+df.loc[r].iat[2])
   st.markdown("Synonyms: "+df.loc[r].iat[3])
   
-
+def search():
+  search_txt = st.text_input("")
+  search_btn = st.button("Search")
+  if search_btn or search_txt:
+    my_regex = r"\b(?=\w)" + re.escape(search_txt) + r"\w*"
+    myquery = { "word": { "$regex": my_regex } }
+    mydoc = pd.DataFrame(coll.find(myquery))
+    len = mydoc.shape[0]
+    if(len>=1):
+      mydoc = mydoc.drop('_id', 1)
+      if(len==1):
+        display_word(mydoc, 0)
+      else:
+        st.dataframe(mydoc)
+    else:
+      st.write("No results found")
 
 
 if __name__ == "__main__":    
@@ -54,8 +60,6 @@ if __name__ == "__main__":
   coll = db["words"]
   df = pd.DataFrame(coll.find())
   df = df.drop('_id', 1)
-  # print(df.head())
-  # df = pd.read_csv("dict.csv")
   
   fl_button = st.sidebar.button("Full List")
   word = st.sidebar.text_input("Add words to the database here")
@@ -63,7 +67,9 @@ if __name__ == "__main__":
   
 
   if fl_button:
-    st.title('here is a page')
+    st.title('Full word list: ')
+    search()
+    st.table(df)
     button = st.button('Go Back')
     if button:
       fl_button = False
@@ -73,17 +79,17 @@ if __name__ == "__main__":
 
     st.title("Vocabulary app")
     
+    # Display random word
     rand_button = st.button("Random")
     if rand_button:
       len = df.shape[0] - 1
-      # print(len)
       r = random.randint(0,len)
       display_word(df, r)
 
+    # Display new word added
     if add_button or word:
       defn, link, all_def, syns, exs  = meaning(word)
       row_contents = [word, all_def, exs, syns]
-      # append_list_as_row('dict.csv', row_contents)
       item = {"word":word," definition":all_def," examples":exs," synonyms":syns}
       coll.insert_one(item)
       st.header("Added Word: ")
@@ -91,40 +97,12 @@ if __name__ == "__main__":
       st.markdown(all_def)
       st.markdown("Examples: " + exs)
       st.markdown("Synonyms: " + syns)
-      # display_word(df, df.shape[0]-1)
 
+    # Display word list
     st.header("Word list")  
-    search_text = st.text_input("")
-    search_button = st.button("Search")
-    # if search_text:
-    #   search_button = True
-    if search_button or search_text:
-      my_regex = r"\b(?=\w)" + re.escape(search_text) + r"\w*"
-      myquery = { "word": { "$regex": my_regex } }
-      mydoc = pd.DataFrame(coll.find(myquery))
-      len = mydoc.shape[0]
-      if(len>=1):
-        mydoc = mydoc.drop('_id', 1)
-        if(len==1):
-          display_word(mydoc, 0)
-        else:
-          st.dataframe(mydoc)
-      else:
-        st.write("No results found")
+    search()
 
     st.dataframe(df)
-
-
-  
-  # st.markdown(df.head())
-  # cols = ["word", "definition", "examples", "synonyms"]
-  # st_ms = st.multiselect("Columns", df.columns.tolist(), default=cols)
-
-  
-
-
-
-
 
 
 
