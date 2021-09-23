@@ -7,10 +7,11 @@ from csv import writer
 import random
 import pymongo
 import regex as re
+import os
 
 
 def get_database():
-    # CONNECTION_STRING = ""
+    CONNECTION_STRING = os.getenv('CONNECTION_STRING')
     client = pymongo.MongoClient(CONNECTION_STRING)
     return client['dict_list']
 
