@@ -11,7 +11,7 @@ import os
 
 
 def get_database():
-    CONNECTION_STRING = os.getenv('CONNECTION_STRING')
+    CONNECTION_STRING = os.getenv('CONNECTION_STRING') # MongoDB connection string - Config variable set on Heroku
     client = pymongo.MongoClient(CONNECTION_STRING)
     return client['dict_list']
 
@@ -75,6 +75,7 @@ if __name__ == "__main__":
     st.title('Full word list: ')
     search()
     fl_button = True
+    df.sort_values(by=['word'], inplace=False)
     st.table(df)
     back_button = st.button('Go Back')
     if back_button:
@@ -119,3 +120,4 @@ if __name__ == "__main__":
   #duplicate removal
   #sort list
   #search in df
+  #handle errors for syn or ex not found
