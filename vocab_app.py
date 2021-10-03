@@ -1,4 +1,3 @@
-# from altair.vegalite.v4.schema.core import FlattenTransform
 from numpy.core.fromnumeric import mean
 from freedictionaryapi.clients.sync_client import DictionaryApiClient
 import pandas as pd
