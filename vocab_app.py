@@ -1,4 +1,3 @@
-from numpy.core.fromnumeric import mean
 from freedictionaryapi.clients.sync_client import DictionaryApiClient
 import pandas as pd
 import streamlit as st
