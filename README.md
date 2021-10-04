@@ -1,4 +1,4 @@
-# Vocabulary Revision app - Personal (Single User)
+# Vocab Journal - A Vocabulary Revision app - Personal (Single User)
 https://sam-vocab.herokuapp.com/
 
  - Streamlit

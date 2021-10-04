@@ -1,9 +1,9 @@
 import pymongo
 import pandas as pd
-
+from settings import *
 
 def get_database():
-    CONNECTION_STRING = "mongodb+srv://sam:1234239@vocab-app-cluster.ckp7m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    CONNECTION_STRING = MongoConnectionString
     client = pymongo.MongoClient(CONNECTION_STRING)
     return client['dict_list']
     
