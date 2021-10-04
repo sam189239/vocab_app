@@ -8,6 +8,20 @@ import regex as re
 import os
 
 
+
+  def get_table_download_link(df):
+      """Generates a link allowing the data in a given panda dataframe to be downloaded
+      in:  dataframe
+      out: href string
+      """
+      csv = df.to_csv(index=False)
+      b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
+      href = f'<a href="data:file/csv;base64,{b64}">Download csv file</a>'
+def download_as_pdf(df):
+  
+
+  return
+
 def get_database():
     CONNECTION_STRING = os.getenv('CONNECTION_STRING') # MongoDB connection string - Config variable set on Heroku
     client = pymongo.MongoClient(CONNECTION_STRING)
@@ -72,8 +86,11 @@ if __name__ == "__main__":
   if fl_button:
     st.title('Full word list: ')
     search()
+    download_button = st.button('Download as PDF')
     fl_button = True
     df.sort_values(by=['word'], inplace=True)
+    if download_button:
+      st.markdown(get_table_download_link(df), unsafe_allow_html=True)
     st.table(df)
     back_button = st.button('Go Back')
     if back_button:
