@@ -6,21 +6,14 @@ import random
 import pymongo
 import regex as re
 import os
+import base64
 
 
-
-  def get_table_download_link(df):
-      """Generates a link allowing the data in a given panda dataframe to be downloaded
-      in:  dataframe
-      out: href string
-      """
-      csv = df.to_csv(index=False)
-      b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
-      href = f'<a href="data:file/csv;base64,{b64}">Download csv file</a>'
-def download_as_pdf(df):
+def get_table_download_link(df):
+  csv = df.to_csv(index=False)
+  b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
+  href = f'<a href="data:file/csv;base64,{b64}">Download csv file</a>'
   
-
-  return
 
 def get_database():
     CONNECTION_STRING = os.getenv('CONNECTION_STRING') # MongoDB connection string - Config variable set on Heroku
