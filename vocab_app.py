@@ -13,6 +13,7 @@ def get_table_download_link(df):
   csv = df.to_csv(index=False)
   b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
   href = f'<a href="data:file/csv;base64,{b64}">Download csv file</a>'
+  st.markdown(href, unsafe_allow_html=True)
   
 
 def get_database():
@@ -83,7 +84,7 @@ if __name__ == "__main__":
     fl_button = True
     df.sort_values(by=['word'], inplace=True)
     if download_button:
-      st.markdown(get_table_download_link(df), unsafe_allow_html=True)
+      get_table_download_link(df)
     st.table(df)
     back_button = st.button('Go Back')
     if back_button:
