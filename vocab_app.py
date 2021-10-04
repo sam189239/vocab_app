@@ -83,8 +83,7 @@ if __name__ == "__main__":
     download_button = st.button('Download as PDF')
     fl_button = True
     df.sort_values(by=['word'], inplace=True)
-    if download_button:
-      get_table_download_link(df)
+    get_table_download_link(df)
     st.table(df)
     back_button = st.button('Go Back')
     if back_button:
