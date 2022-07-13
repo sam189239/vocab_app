@@ -5,7 +5,6 @@ https://sam-vocab.herokuapp.com/
  - MongoDB
  - Heroku
 
-<!-- ![Sample Front pose](/sample_data/Pose_3d_model/front_view.png) | ![Sample Side pose](/sample_data/Pose_3d_model/side_view.png) -->
 <table><tr>
 <td> 
   <p align="center" style="padding: 10px">
