@@ -2,3 +2,4 @@ settings.py
 df_to_pdf.py
 __pycache__
 WordList.pdf
+dict2.csv
