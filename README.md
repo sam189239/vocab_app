@@ -9,7 +9,7 @@ https://sam-vocab.herokuapp.com/
 <table><tr>
 <td> 
   <p align="center" style="padding: 10px">
-    <img alt="Forwarding" src="Vocab_APP.jpg" width="320">
+    <img alt="Forwarding" src="Vocab_APP.jpg" width="1080">
     <br>
   </p> 
 </td>
